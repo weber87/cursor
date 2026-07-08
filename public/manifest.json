@@ -1,0 +1,16 @@
+{
+  "name": "NutriAI — Smart Calorie Tracker",
+  "short_name": "NutriAI",
+  "description": "Track calories with AI-powered food photo analysis",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8faf9",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
