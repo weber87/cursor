@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model UserProfile {
+  id            String        @id @default(cuid())
+  name          String        @default("You")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  calorieGoal   Int           @default(2000)
+  proteinGoal   Int           @default(150)
+  carbsGoal     Int           @default(250)
+  fatGoal       Int           @default(65)
+  targetWeight  Float?
+  startWeight   Float?
+  meals         Meal[]
+  weightEntries WeightEntry[]
+}
+
+model Meal {
+  id        String      @id @default(cuid())
+  name      String
+  calories  Int
+  protein   Float
+  carbs     Float
+  fat       Float
+  mealType  String
+  source    String      @default("manual")
+  imageUrl  String?
+  notes     String?
+  date      String
+  createdAt DateTime    @default(now())
+  userId    String
+  user      UserProfile @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model WeightEntry {
+  id        String      @id @default(cuid())
+  weight    Float
+  date      String
+  notes     String?
+  createdAt DateTime    @default(now())
+  userId    String
+  user      UserProfile @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+}
